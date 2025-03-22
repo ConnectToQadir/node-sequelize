@@ -1,52 +1,21 @@
 const router = require("express").Router()
-const {students} = require("../models")
+const {
+    EnrollStudent,
+    GetStudents,
+    GetStudent,
+    UpdateStudent,
+    DeleteStudent
+} = require('../controllers/students')
+const AdminCheck = require("../middlewares/AdminCheck")
 
 
 
-router.post("/",async function (req,res){
-    var data = await students.create(req.body)
-    res.json({
-        success:true,
-        message:"Student Created Successfully!",
-        data:data
-    })
-})
+router.post("/",EnrollStudent)
+router.get("/",GetStudents)
+router.get("/:id",GetStudent)
+router.put("/:id",UpdateStudent)
 
-
-router.get("/",async function (req,res){
-    var data = await students.findAll()
-    res.json({
-        success:true,
-        message:"Students Received Successfully!",
-        data:data
-    })
-})
-
-
-router.put("/:id",async function (req,res){
-    var s = await students.findByPk(req.params.id)
-    s.update(req.body)
-    await s.save()
-    
-    res.json({
-        success:true,
-        message:"Student Updated Successfully!",
-        data:s
-    })
-})
-
-
-router.delete("/:id",async function (req,res){
-
-    var s = await students.findByPk(req.params.id)
-    await s.destroy()
-    
-    res.json({
-        success:true,
-        message:"Student Deleted Successfully!",
-        data:s
-    })
-})
+router.delete("/:id",AdminCheck,DeleteStudent)
 
 
 

@@ -5,6 +5,7 @@
     "database": "edify",
     "host": "localhost",
     "port": 5433,
-    "dialect": "postgres"
+    "dialect": "postgres",
+    "logging":false
   }
 }

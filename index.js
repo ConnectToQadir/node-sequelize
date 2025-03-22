@@ -3,9 +3,8 @@ const express = require("express")
 const app = express()
 
 
-
 app.use(express.json())
-app.use("/students",require('./routes/students'))
+app.use("/api/v1/students",require('./routes/students'))
 
 
 
@@ -14,6 +13,7 @@ app.use("/students",require('./routes/students'))
 app.listen(3000,function (){
     console.log("Application Started on Port 3000")
 })
+
 
 
 // For Database Syncing ----------------
