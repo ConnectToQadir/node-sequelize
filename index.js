@@ -1,16 +1,27 @@
-const {} = require('./models')
+const { } = require('./models')
 const express = require("express")
 const app = express()
+const catchAsync = require("./utils/catchAsyc")
 
 
 app.use(express.json())
-app.use("/api/v1/students",require('./routes/students'))
+app.use("/api/v1/students", require('./routes/students'))
 
 
 
 
+// Global 404 Response
+app.use("*", catchAsync(async (req, res, next) => {
+    res.status(404).send(`The request route ${req.baseUrl} does exists!`)
+}))
 
-app.listen(3000,function (){
+// Express App Global Error Handler
+app.use((err, req, res, next) => {
+    res.send(`Handled here in index.js  =>  ${err.message}`)
+})
+
+
+app.listen(3000, function () {
     console.log("Application Started on Port 3000")
 })
 
