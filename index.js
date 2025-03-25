@@ -1,4 +1,4 @@
-const { } = require('./models')
+const {} = require('./models')
 const express = require("express")
 const app = express()
 const catchAsync = require("./utils/catchAsyc")
