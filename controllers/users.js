@@ -30,7 +30,6 @@ const SignUp = async (req, res) => {
 }
 
 
-
 const SignIn = async (req,res) =>{
    
    
@@ -80,7 +79,13 @@ const SignIn = async (req,res) =>{
 }
 
 
+const GetUsers = async (req,res) => {
+    const data = await users.findAll()
+    res.json({
+        success:true,
+        data:data
+    })
+}
 
 
-
-module.exports = {SignUp,SignIn}
+module.exports = {SignUp,SignIn,GetUsers}
