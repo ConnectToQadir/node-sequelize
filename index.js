@@ -1,11 +1,13 @@
-const {} = require('./models')
+const {users} = require('./models')
 const express = require("express")
 const app = express()
 const catchAsync = require("./utils/catchAsyc")
+const globalErrorHandler = require('./controllers/errorController')
 
 
 app.use(express.json())
 app.use("/api/v1/students", require('./routes/students'))
+app.use("/api/v1/auth", require('./routes/users'))
 
 
 
@@ -16,9 +18,7 @@ app.use("*", catchAsync(async (req, res, next) => {
 }))
 
 // Express App Global Error Handler
-app.use((err, req, res, next) => {
-    res.send(`Handled here in index.js  =>  ${err.message}`)
-})
+app.use(globalErrorHandler)
 
 
 app.listen(3000, function () {
@@ -30,7 +30,7 @@ app.listen(3000, function () {
 // For Database Syncing ----------------
 // async function DBSync(){
 //     try {
-//         await students.sync({force:true})
+//         await users.sync({force:true})
 //         console.log("Sync Successfully!")
 //     } catch (error) {
 //         console.log(error)
