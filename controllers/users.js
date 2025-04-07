@@ -29,9 +29,7 @@ const SignUp = async (req, res) => {
 
 }
 
-
 const SignIn = async (req,res) =>{
-   
    
     if(!req.body.email || !req.body.password){
         res.status(400).json({
@@ -67,17 +65,21 @@ const SignIn = async (req,res) =>{
     }
 
 
-    // generate
-    const token = jwt.sign({id:foundUser.id},"asdkflaj29392",{expiresIn:"15s"})
+    // generate token
+    const token = jwt.sign(
+        {id:foundUser.id},
+        "asdfjlaj39393",
+        {expiresIn:"15s"}
+    )
+
+    res.cookie("token",token)
 
     res.json({
         success:true,
-        message:"Signin Successfully!",
-        token:token
+        message:"Signin Successfully!"
     })
 
 }
-
 
 const GetUsers = async (req,res) => {
     const data = await users.findAll()
